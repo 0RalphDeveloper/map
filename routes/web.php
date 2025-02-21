@@ -5,11 +5,13 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboardadmin', [DashboardController::class, 'viewdashboard'])->name('viewdashboard');
 
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
@@ -29,5 +31,5 @@ Route::get('/map', [MapController::class, 'mapview']);
 Route::get('/direction', [MapController::class, 'getDirection']);
 Route::get('/categories', [MapController::class, 'categories']);
 
-Route::get('/send-email', [LoginController::class, 'sendEmail']);
+Route::get('/send-email', [LoginController::class, 'sendEmail'])->name('sendemail');
 

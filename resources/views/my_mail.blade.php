@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome, {{ $data->username }}</title>
+    <title>PLANT SCHEDULER REMINDER!!!</title>
 </head>
 <body>
     <h2>Hello, {{ $data->username }}!</h2>

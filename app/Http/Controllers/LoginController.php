@@ -75,16 +75,14 @@ class LoginController extends Controller
 
         if ($user) {
             Mail::to($user->email)->send(new MyMail($user));
-            return back()->with('message', 'Email sent successfully!');
+            return redirect()->intended(route('viewdashboard'))->with('message', 'Email sent Successfully!') ;
+
+        }
+        else{
+            return redirect()->intended(route('viewdashboard'))->with('error', 'Email sent Unsuccessfully!') ;
         }
 
-
-
-
-        return "Email Sent Successfully!";
     }
-
-
     public function createview(){
         return view('createuser');
     }
