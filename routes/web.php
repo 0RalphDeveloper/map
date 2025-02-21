@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/registeruser', [LoginController::class, 'createview']);
+Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
 
 Route::get('/loginuser', [LoginController::class, 'loginview']);
@@ -29,5 +29,5 @@ Route::get('/map', [MapController::class, 'mapview']);
 Route::get('/direction', [MapController::class, 'getDirection']);
 Route::get('/categories', [MapController::class, 'categories']);
 
-Route::get('/send-email', [MailController::class, 'sendEmail']);
+Route::get('/send-email', [LoginController::class, 'sendEmail']);
 

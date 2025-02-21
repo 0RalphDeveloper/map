@@ -6,51 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-<h1 style="text-align:center;">PLANT SCHEDULER</h1>
-<h2 style="text-align:center;">Create Account </h2>
+<div style="text-align: center;">
+    <h1 >PLANT SCHEDULER CREATE</h1>
 
-        @if(session('error'))
-            <div>
-                {{ session('error') }}
-            </div>
-        @endif
-
-        @if(session()->has('success'))
-            {{session()->get('success')}}
+            @if(session('error'))
+                <div>
+                    {{ session('error') }}
+                </div>
             @endif
 
-            <form action="{{route('createstore')}}" method = POST enctype="multipart/form-data">
-                @csrf
+            @if(session()->has('success'))
+                {{session()->get('success')}}
+                @endif
 
-                <div>
-                    <label for="username">Username: </label>
-                    <input type="text" name="username">
-                    @error('username')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
+                <form action="{{route('createstore')}}" method = POST enctype="multipart/form-data">
+                    @csrf
 
-                <div>
-                    <label for="email">Email: </label>
-                    <input type="text" name="email">
-                    @error('email')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
+                    <div>
+                        <label for="username">Username: </label>
+                        <input type="text" name="username">
+                        @error('username')
+                        <span>{{$message}}</span>
+                        @enderror
+                    </div>
 
-                <div>
-                    <label for="password">Password: </label>
-                    <input type="text" name="password">
-                    @error('password')
-                    <span>{{$message}}</span>
-                    @enderror
-                </div>
+                    <div>
+                        <label for="email">Email: </label>
+                        <input type="text" name="email">
+                        @error('email')
+                        <span>{{$message}}</span>
+                        @enderror
+                    </div>
 
-                <div>
-                    <input type="submit" name="submit" value="Submit">
-                </div>
+                    <div>
+                        <label for="password">Password: </label>
+                        <input type="text" name="password">
+                        @error('password')
+                        <span>{{$message}}</span>
+                        @enderror
+                    </div>
 
-    </form>
-    
+                    <div>
+                        <input type="submit" name="submit" value="Submit">
+                    </div>
+
+        </form>
+</div>
 </body>
 </html>

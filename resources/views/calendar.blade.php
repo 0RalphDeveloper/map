@@ -36,8 +36,10 @@
         <input type="datetime-local" id="event_date" name="event_date" required>
 
         <button type="submit">Add Schedule</button>
+
         <p id="message"></p>
     </form>
+
 
     <h3>Schedule List</h3>
     <table>
@@ -61,6 +63,11 @@
         </tbody>
     </table>
 </form>
+<div class="addplants">
+    <br>
+        <a href="/plantsview"><input type="submit" value="Add Plants"></a> 
+    </div>
+
 
 </body>
 </html>

@@ -19,7 +19,7 @@
     <p id="plantMessage"></p>
 </form>
 
-<h2>Plant Scheduling</h2>
+   <a href="/calendar"><input type="submit" value="Plant Schedules"></a> 
 
     
 </body>

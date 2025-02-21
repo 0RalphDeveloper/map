@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Login;
 use App\Models\Create;
+use Mail;
+use App\Mail\MyMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -65,6 +69,21 @@ class LoginController extends Controller
         //
     }
 
+    public function sendEmail()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            Mail::to($user->email)->send(new MyMail($user));
+            return back()->with('message', 'Email sent successfully!');
+        }
+
+
+
+
+        return "Email Sent Successfully!";
+    }
+
 
     public function createview(){
         return view('createuser');
@@ -101,7 +120,7 @@ class LoginController extends Controller
 
     public function loginuser(Request $request){
         $request->validate([
-            'email' => 'required|email|unique:logins,email,',
+            'email' => 'required',
             'password'=> 'required',
         ]);
 
@@ -109,9 +128,9 @@ class LoginController extends Controller
         if(Auth::guard('web')->attempt($credentials)){
            $user= Auth::user();
             session(['user_name' => $user->name]);
-            return redirect()->intended(route('loginuser'));
+            return redirect()->intended(route('viewplants'));
         }
-        return redirect()->back()->with('error', 'USERNAME AND PASSWORD DO NOT MATCH');
+        return redirect()->back()->with('error', 'EMAIL AND PASSWORD DO NOT MATCH');
     }
 
 

@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Email from Laravel</title>
+    <title>Welcome, {{ $data->username }}</title>
 </head>
 <body>
-    <h1>Hello, {{ $data['name'] }}</h1>
-    <p>{{ $data['message'] }}</p>
+    <h2>Hello, {{ $data->username }}!</h2>
+    <p>TIS IS A TEST EMAIL FROM PLANT SCHEDULER</p>
 </body>
 </html>
+
