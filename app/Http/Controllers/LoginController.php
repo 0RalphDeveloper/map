@@ -95,6 +95,9 @@ class LoginController extends Controller
         }
     }
 
+    public function loginview(){
+        return view('loginuser');
+    }
 
 
 }

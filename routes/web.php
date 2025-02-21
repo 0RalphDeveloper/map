@@ -14,6 +14,8 @@ Route::get('/', function () {
 Route::get('/registeruser', [LoginController::class, 'createview']);
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
 
+Route::get('/loginuser', [LoginController::class, 'loginview']);
+
 
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
