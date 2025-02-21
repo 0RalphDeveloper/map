@@ -99,5 +99,23 @@ class LoginController extends Controller
         return view('loginuser');
     }
 
+    public function loginuser(Request $request){
+        $request->validate([
+            'email' => 'required|email|unique:logins,email,',
+            'password'=> 'required',
+        ]);
+
+        $credentials = $request->only('email','password');
+        if(Auth::guard('web')->attempt($credentials)){
+           $user= Auth::user();
+            session(['user_name' => $user->name]);
+            return redirect()->intended(route('loginuser'));
+        }
+        return redirect()->back()->with('error', 'USERNAME AND PASSWORD DO NOT MATCH');
+    }
+
+
+    
+
 
 }
