@@ -69,20 +69,50 @@ class LoginController extends Controller
         //
     }
 
-    public function sendEmail()
-    {
-        $user = Auth::user();
+    // public function sendEmail()
+    // {
+    //     $user = Auth::user();
 
-        if ($user) {
-            Mail::to($user->email)->send(new MyMail($user));
-            return redirect()->intended(route('viewdashboard'))->with('message', 'Email sent Successfully!') ;
+    //     if ($user) {
+    //         Mail::to($user->email)->send(new MyMail($user));
+    //         return redirect()->intended(route('viewdashboard'))->with('message', 'Email sent Successfully!') ;
 
-        }
-        else{
-            return redirect()->intended(route('viewdashboard'))->with('error', 'Email sent Unsuccessfully!') ;
-        }
+    //     }
+    //     else{
+    //         return redirect()->intended(route('viewdashboard'))->with('error', 'Email sent Unsuccessfully!') ;
+    //     }
 
+    // }
+
+    public function annoucenmentview(){
+        return view('announcement');
     }
+    public function sendAnnouncement(Request $request)
+    {
+                $request->validate([
+                    'recipient' => 'required|string', // 'all' or specific email
+                    'subject' =>'required|string',
+                    'message' => 'required|string',
+                ]);
+        
+                $recipient = $request->recipient;
+                $subject=$request->subject;
+                $data = $request->message;
+        
+                if ($recipient === 'all') {
+                    // Send to all users
+                    $users = Login::pluck('email');
+                    foreach ($users as $email) {
+                        Mail::to($email)->send(new MyMail($subject,$data));
+                    }
+                    return back()->with('success', 'Announcement sent to all users!');
+                } else {
+                    // Send to a specific email
+                    Mail::to($recipient)->send(new MyMail($subject,$data));
+                    return back()->with('success', 'Announcement sent to ' . $recipient);
+                }
+    }
+
     public function createview(){
         return view('createuser');
     }

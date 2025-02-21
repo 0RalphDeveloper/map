@@ -33,3 +33,6 @@ Route::get('/categories', [MapController::class, 'categories']);
 
 Route::get('/send-email', [LoginController::class, 'sendEmail'])->name('sendemail');
 
+Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
+Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
+

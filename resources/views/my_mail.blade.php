@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PLANT SCHEDULER REMINDER!!!</title>
+    <title>{{ $subject }}</title>
 </head>
 <body>
-    <h2>Hello, {{ $data->username }}!</h2>
-    <p>TIS IS A TEST EMAIL FROM PLANT SCHEDULER</p>
+    <h2>Admin Announcement</h2>
+    <p>{{ $data }}</p>
 </body>
 </html>
-
