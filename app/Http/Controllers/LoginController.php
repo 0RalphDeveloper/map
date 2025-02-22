@@ -6,6 +6,8 @@ use App\Models\Login;
 use App\Models\Create;
 use Mail;
 use App\Mail\MyMail;
+use App\Mail\UserVerificationMail;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -128,14 +130,16 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $logins = new Login;
-        $logins->username = $request->username;
-        $logins->email = $request->email;
-        $logins->password = Hash::make($request->password);
-        $save = $logins->save();
-
-        if($save){
-            return back()->with('success', 'Successfully created.');
+        $user = Login::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'verified' => false, // New users are unverified
+        ]);
+        if($user){
+            Mail::to($user->email)->send(new UserVerificationMail($user));
+            return back()->with('success', 'Please check your email to verify your account.');
+            
         }else
         {
             return back()->with('error','Something Went Wrong.');
@@ -151,14 +155,24 @@ class LoginController extends Controller
             'email' => 'required',
             'password'=> 'required',
         ]);
-
         $credentials = $request->only('email','password');
+
+        $user = Login::where('email', $credentials['email'])->first();
+         // Check if user exists
+        if (!$user) {
+            return redirect()->route('loginview')->with('error', 'User not found.');
+         }
+        
+        if (!$user->verified) {
+            return redirect()->route('loginview')->with('error', 'Your account is not verified. Please check your email.');
+        }
+
         if(Auth::guard('web')->attempt($credentials)){
            $user= Auth::user();
             session(['user_name' => $user->name]);
             return redirect()->intended(route('viewplants'));
         }
-        return redirect()->back()->with('error', 'EMAIL AND PASSWORD DO NOT MATCH');
+    return redirect()->route('loginview')->with('error', 'EMAIL AND PASSWORD DO NOT MATCH');
     }
 
 
