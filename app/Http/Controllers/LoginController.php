@@ -103,16 +103,33 @@ class LoginController extends Controller
         
                 if ($recipient === 'all') {
                     // Send to all users
-                    $users = Login::pluck('email');
+                    $verifiedUsers = Login::where('verified', true)->pluck('email');
+                    $unverifiedUsers = Login::where('verified', false)->pluck('email');
+
+                    foreach ($verifiedUsers as $email) {
+                        Mail::to($email)->send(new MyMail($subject,$data));
+                    }
+                    foreach ($unverifiedUsers as $email) {
+                        Mail::to($email)->send(new MyMail($subject,$data));
+                    }
+                    return back()->with('success', 'Announcement sent to All users!');
+
+                } elseif($recipient === 'non-verified') {
+                        // Send to all non verified users
+                        $users = Login::where('verified', false)->pluck('email');
+                        foreach ($users as $email) {
+                            Mail::to($email)->send(new MyMail($subject,$data));
+                        }
+                        return back()->with('success', 'Announcement sent to Non-Verified users!');
+
+                } elseif($recipient === 'verified') {
+                    // Send to all verified users
+                    $users = Login::where('verified', true)->pluck('email');
                     foreach ($users as $email) {
                         Mail::to($email)->send(new MyMail($subject,$data));
                     }
-                    return back()->with('success', 'Announcement sent to all users!');
-                } else {
-                    // Send to a specific email
-                    Mail::to($recipient)->send(new MyMail($subject,$data));
-                    return back()->with('success', 'Announcement sent to ' . $recipient);
-                }
+                    return back()->with('success', 'Announcement sent to Verified users!');
+            } 
     }
 
     public function createview(){

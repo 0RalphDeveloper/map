@@ -22,11 +22,8 @@ Route::get('/verify-user/{id}', function ($id) {
     return redirect('/loginuser')->with('success', 'Your account has been verified. You can now log in.');
 })->name('verifyuser');
 
-Route::get('/dashboardadmin', [DashboardController::class, 'viewdashboard'])->name('viewdashboard');
-
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
-
 Route::get('/loginuser', [LoginController::class, 'loginview'])->name('loginview');
 Route::post('/loggedinuser', [LoginController::class, 'loginuser'])->name('loginuser');
 
@@ -43,10 +40,17 @@ Route::get('/direction', [MapController::class, 'getDirection']);
 Route::get('/categories', [MapController::class, 'categories']);
 
 Route::get('/send-email', [LoginController::class, 'sendEmail'])->name('sendemail');
-
-Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
-Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
 });
+
+Route::middleware('authadmin')->group(function (){
+    Route::get('/dashboardadmin', [DashboardController::class, 'viewdashboard'])->name('viewdashboard');
+
+    Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
+    Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
+});
+
+
+
 
 
 

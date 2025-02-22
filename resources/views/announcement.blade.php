@@ -22,9 +22,9 @@
             <label for="recipient" class="form-label">Recipient:</label>
             <select name="recipient" id="recipient" class="form-control" required>
                 <option value="all">All Users</option>
-                @foreach(\App\Models\Login::all() as $user)
-                    <option value="{{ $user->email }}">{{ $user->email }}</option>
-                @endforeach
+                <option value="non-verified">Non-Verified Users</option>
+                <option value="verified">Verified Users</option>
+
             </select>
         </div>
 
