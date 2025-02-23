@@ -180,9 +180,9 @@ class LoginController extends Controller
             return redirect()->route('loginview')->with('error', 'User not found.');
          }
         
-        if (!$user->verified) {
-            return redirect()->route('loginview')->with('error', 'Your account is not verified. Please check your email.');
-        }
+        // if (!$user->verified) {
+        //     return redirect()->route('loginview')->with('error', 'Your account is not verified. Please check your email.');
+        // }
 
         if(Auth::guard('web')->attempt($credentials)){
            $user= Auth::user();

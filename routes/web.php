@@ -22,12 +22,18 @@ Route::get('/verify-user/{id}', function ($id) {
     return redirect('/loginuser')->with('success', 'Your account has been verified. You can now log in.');
 })->name('verifyuser');
 
+
+
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
 Route::get('/loginuser', [LoginController::class, 'loginview'])->name('loginview');
 Route::post('/loggedinuser', [LoginController::class, 'loginuser'])->name('loginuser');
 
 Route::middleware('authuser')->group(function (){
+    Route::get('/dashboarduser', [DashboardController::class, 'dashboardview'])->name('dashboardview');
+});
+
+Route::middleware('authverified')->group(function (){
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
 
@@ -48,6 +54,8 @@ Route::middleware('authadmin')->group(function (){
     Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
     Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
 });
+
+
 
 
 

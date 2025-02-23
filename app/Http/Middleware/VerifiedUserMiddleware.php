@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticateMiddleware
+class VerifiedUserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,14 @@ class AuthenticateMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()){
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect()->route('loginview')->with('error', 'Please log in.');
         }
-        return redirect()->route('dashboardview');
+
+        if (!Auth::user()->verified) {
+            return redirect()->route('dashboardview')->with('error', 'Your account is not verified.');
+        }
+
+        return $next($request);
     }
 }
