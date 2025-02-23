@@ -16,9 +16,13 @@ class AuthenticateMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()){
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect()->route('loginview'); // Redirect unauthenticated users to login
         }
-        return redirect()->route('dashboardview');
+        
+        if (Auth::user()->verified) {
+            return redirect()->route('dashboardview');
+        }
+       return $next($request);
     }
 }

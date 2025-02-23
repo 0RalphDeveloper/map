@@ -20,6 +20,7 @@
 </form>
 
    <a href="/calendar"><input type="submit" value="Plant Schedules"></a> 
+   <a href="/dashboarduser"><input type="submit" value="Go to dashboard"></a> 
 
     
 </body>

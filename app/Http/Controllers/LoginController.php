@@ -86,6 +86,19 @@ class LoginController extends Controller
 
     // }
 
+    public function sendverification(){
+        $user=Auth::user();
+        return view('sendverification',compact('user'));
+    }
+    public function sentverification(Request $request){
+        $user=Auth::user();
+        $user->verified = true;
+        $user->save();
+
+        return redirect()->route('dashboardview')->with('success', 'Your account has been verified successfully!');
+
+    }
+
     public function annoucenmentview(){
         return view('announcement');
     }

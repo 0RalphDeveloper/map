@@ -16,14 +16,19 @@ class VerifiedUserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return redirect()->route('loginview')->with('error', 'Please log in.');
-        }
-
-        if (!Auth::user()->verified) {
+        if (Auth::check()) {
+            // Allow admins to proceed regardless of verification
+            if (Auth::user()->role === 'admin') {
+                return $next($request);
+            }
+    
+            // Only allow verified users to proceed
+            if (Auth::user()->verified) {
+                return $next($request);
+            }
             return redirect()->route('dashboardview')->with('error', 'Your account is not verified.');
         }
 
-        return $next($request);
+        return redirect()->route('loginview');
     }
 }
