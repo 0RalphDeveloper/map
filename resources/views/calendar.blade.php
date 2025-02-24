@@ -65,8 +65,11 @@
 </form>
 <div class="addplants">
     <br>
-        <a href="/plantsview"><input type="submit" value="Add Plants"></a> 
-    </div>
+    <a href="/plantsview" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Add Plants</a>
+    <a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+        Back to Dashboard
+    </a></div>
+
 
 
 </body>

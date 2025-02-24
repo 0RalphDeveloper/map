@@ -21,7 +21,6 @@ class AdminMiddleware
         }
 
         // If not authenticated or not an admin, redirect to login
-        return redirect('/loginuser')->with('error', 'Access Denied');
-
+        return redirect()->route('dashboardview');
     }
 }

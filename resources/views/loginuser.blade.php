@@ -47,8 +47,14 @@
                     <input type="submit" name="submit" value="Submit">
                 </div>
             </form>
+            <br>
+            <a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+    Back to Dashboard
+    </a>
         </div>
+
     </div>
+    
 </body>
 </html>
 

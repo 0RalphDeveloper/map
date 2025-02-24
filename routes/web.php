@@ -21,6 +21,7 @@ Route::get('/verify-user/{id}', function ($id) {
     $user->save();
     return redirect('/loginuser')->with('success', 'Your account has been verified. You can now log in.');
 })->name('verifyuser');
+Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
 Route::post('/createaccount', [LoginController::class, 'createstore'])->name('createstore');
@@ -48,10 +49,10 @@ Route::get('/direction', [MapController::class, 'getDirection']);
 Route::get('/categories', [MapController::class, 'categories']);
 
 Route::get('/send-email', [LoginController::class, 'sendEmail'])->name('sendemail');
+
 });
 
 Route::middleware('authadmin')->group(function (){
-    Route::get('/dashboardadmin', [DashboardController::class, 'viewdashboard'])->name('viewdashboard');
     Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
     Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
 });

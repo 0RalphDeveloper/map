@@ -200,9 +200,16 @@ class LoginController extends Controller
         if(Auth::guard('web')->attempt($credentials)){
            $user= Auth::user();
             session(['user_name' => $user->name]);
-            return redirect()->intended(route('viewplants'));
+            return redirect()->intended(route('dashboardview'));
         }
     return redirect()->route('loginview')->with('error', 'EMAIL AND PASSWORD DO NOT MATCH');
+    }
+
+    public function logoutUser(Request $request){
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/dashboarduser');
     }
 
 

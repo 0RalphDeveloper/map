@@ -19,9 +19,10 @@
     <p id="plantMessage"></p>
 </form>
 
-   <a href="/calendar"><input type="submit" value="Plant Schedules"></a> 
-   <a href="/dashboarduser"><input type="submit" value="Go to dashboard"></a> 
-
+   <a href="/calendar" style="display: inline-block; padding: 10px 20px; background-color: grey; color: #fff; text-decoration: none; border-radius: 5px;">Plant Schedules</a>
+   <a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+        Back to Dashboard
+    </a>
     
 </body>
 </html>

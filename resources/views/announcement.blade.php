@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        .announce{
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color:rgba(219, 20, 20, 0.81); 
+            color: #fff; 
+            text-decoration: none; 
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -40,8 +53,12 @@
             <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Send Announcement</button>
+        <button type="submit" class="announce">Send Announcement</button>
     </form>
+    <br>
+    <a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+        Back to Dashboard
+    </a>
 </div>
 
 </body>
