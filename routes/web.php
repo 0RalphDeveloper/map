@@ -21,7 +21,7 @@ Route::get('/verify-user/{id}', function ($id) {
     $user = Login::findOrFail($id);
     $user->verified = true;
     $user->save();
-    return redirect('/loginuser')->with('success', 'Your account has been verified. You can now log in.');
+    return redirect('/dashboarduser');
 })->name('verifyuser');
 Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
@@ -34,7 +34,7 @@ Route::get('/dashboarduser', [DashboardController::class, 'dashboardview'])->nam
 
 Route::middleware('authuser')->group(function (){
     Route::get('/sendverificationuser', [LoginController::class, 'sendverification'])->name('sendverification');
-    Route::post('/sentverification', [LoginController::class, 'sentverification'])->name('sentverification');
+    Route::post('/sentverification/{id}', [LoginController::class, 'sentverification'])->name('sentverification');
 
 });
 

@@ -90,12 +90,11 @@ class LoginController extends Controller
         $user=Auth::user();
         return view('sendverification',compact('user'));
     }
-    public function sentverification(Request $request){
-        $user=Auth::user();
-        $user->verified = true;
-        $user->save();
+    public function sentverification($id){
+        $user = Login::findOrFail($id);
+        Mail::to($user->email)->send(new UserVerificationMail($user));
 
-        return redirect()->route('dashboardview')->with('success', 'Your account has been verified successfully!');
+        return redirect()->route('sendverification')->with('success', 'Verification sent to your email '. $user->email);
 
     }
 
