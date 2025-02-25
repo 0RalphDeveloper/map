@@ -65,7 +65,9 @@
 </form>
 <div class="addplants">
     <br>
+    @if(Auth::check() && Auth::user()->role === 'admin')
     <a href="/plantsview" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Add Plants</a>
+    @endif
     <a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
         Back to Dashboard
     </a></div>

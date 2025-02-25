@@ -113,7 +113,7 @@
     @elseif(Auth::check() && Auth::user()->verified)
     THIS IS DASHBOARD FOR VERIFIED USER
         <p>GO TO PLANT SCHEDULES</p>
-        <a href="/plantsview" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Add Plants</a>
+        <a href="/calendar" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Plant Schedules</a>
         </div>    
     @endif
 

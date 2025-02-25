@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Plant extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'species'];
+    protected $fillable = ['name','location', 'species'];
 }

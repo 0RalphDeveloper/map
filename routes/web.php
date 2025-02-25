@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Login;
+use App\Models\Plant;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
@@ -40,8 +42,14 @@ Route::middleware('authverified')->group(function (){
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
 
-Route::get('/plantsview', [ScheduleController::class, 'viewplants'])->name('viewplants');
-Route::post('/plants', [ScheduleController::class, 'plants'])->name('plants');
+
+Route::get('/brgyplants', function (Request $request) {
+    $barangay = $request->query('barangay');
+    $plants = Plant::where('location', $barangay)->get();
+    
+    return view('brgyplants', compact('barangay', 'plants'));
+});
+
 
 Route::get('/map', [MapController::class, 'mapview']);
 
@@ -53,6 +61,9 @@ Route::get('/send-email', [LoginController::class, 'sendEmail'])->name('sendemai
 });
 
 Route::middleware('authadmin')->group(function (){
+    Route::get('/plantsview', [ScheduleController::class, 'viewplants'])->name('viewplants');
+    Route::post('/plants', [ScheduleController::class, 'plants'])->name('plants');
+
     Route::get('/announcement', [LoginController::class, 'annoucenmentview'])->name('annoucenmentview');
     Route::post('/announcement/send', [LoginController::class, 'sendAnnouncement'])->name('sendAnnouncement');
 });

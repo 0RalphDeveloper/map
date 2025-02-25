@@ -31,11 +31,15 @@ class ScheduleController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'species' => 'nullable|string|max:255',
+            'location' => 'required|string',
+
         ]);
 
         $plant = Plant::create([
             'name' => $request->name,
             'species' => $request->species,
+            'location' => $request->location
+
         ]);
 
         return back();
@@ -44,6 +48,7 @@ class ScheduleController extends Controller
     public function viewplants(){
         return view('plant');
     }
+
 
     
 }
