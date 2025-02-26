@@ -48,7 +48,10 @@
                 <th>Plant</th>
                 <th>Event</th>
                 <th>Date</th>
+                <th>Location</th>
                 <th>Status</th>
+                
+
             </tr>
         </thead>
         <tbody id="scheduleTable">
@@ -57,6 +60,7 @@
                     <td>{{ $schedule->plant->name }}</td>
                     <td>{{ ucfirst($schedule->event_type) }}</td>
                     <td>{{ $schedule->event_date }}</td>
+                    <td>{{ $schedule->plant->location }}</td>
                     <td>{{ ucfirst($schedule->status) }}</td>
                 </tr>
             @endforeach

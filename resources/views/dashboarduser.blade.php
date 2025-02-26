@@ -107,13 +107,18 @@
         <a href="/plantsview" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Add Plants</a>
         <br><br>
         <a href="/announcement" style="display: inline-block; padding: 10px 20px; background-color: brown; color: #fff; text-decoration: none; border-radius: 5px;">Admin Announcement</a>
-        
+        <br><br>
+        <a href="/map" style="display: inline-block; padding: 10px 20px; background-color: blue; color: #fff; text-decoration: none; border-radius: 5px;">View Map</a>
+
 
 
     @elseif(Auth::check() && Auth::user()->verified)
     THIS IS DASHBOARD FOR VERIFIED USER
         <p>GO TO PLANT SCHEDULES</p>
         <a href="/calendar" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Plant Schedules</a>
+        <br><br>
+        <a href="/map" style="display: inline-block; padding: 10px 20px; background-color: blue; color: #fff; text-decoration: none; border-radius: 5px;">View Map</a>
+
         </div>    
     @endif
 

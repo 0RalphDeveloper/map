@@ -19,6 +19,9 @@ class PlantSeeder extends Seeder
             ['name' => 'Coconut Tree', 'location' => 'Angeles Zone IV, Tayabas City'],
             ['name' => 'Papaya Plant', 'location' => 'Angeles Zone II, Tayabas City'],
             ['name' => 'Guava Tree', 'location' => 'Angeles Zone III, Tayabas City'],
+            ['name' => 'Apple Tree', 'location' => 'Brgy. Mateuna, Tayabas City'],
+            ['name' => 'Malunggay Tree', 'location' => 'Brgy. Lita, Tayabas City'],
+
         ]);
     }
 }

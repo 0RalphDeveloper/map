@@ -8,10 +8,15 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['plant_id', 'event_type', 'event_date', 'status'];
+    protected $fillable = ['login_id','plant_id', 'event_type', 'event_date', 'status'];
 
     public function plant()
     {
         return $this->belongsTo(Plant::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Login::class, 'login_id');
     }
 }

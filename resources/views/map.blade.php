@@ -121,16 +121,7 @@
 
         function onLocationFound(e) {
             var latlng = e.latlng;
-            var accuracy = e.accuracy;
-
-            if (!userMarker) {
-                userMarker = L.marker(latlng, { draggable: false }).addTo(map)
-                    .bindPopup(`<b>You are here!</b><br>
-                                <button onclick="viewPlace(${latlng.lat}, ${latlng.lng})">View Plants Here!</button>`)
-                    .openPopup();
-            } else {
-                userMarker.setLatLng(latlng);
-            }
+            var accuracy = e.accuracy * 1.5;
 
             if (!accuracyCircle) {
                 accuracyCircle = L.circle(latlng, { radius: accuracy }).addTo(map);
@@ -139,7 +130,7 @@
                 accuracyCircle.setRadius(accuracy);
             }
 
-            map.setView(latlng, 15);
+            map.setView(latlng, 11.5);
         }
 
         function onLocationError(e) {
@@ -169,6 +160,9 @@
             }
         );
     </script>
-
+    <br><br>
+<a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+        Back to Dashboard
+    </a>
 </body>
 </html>

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use App\Models\Plant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class ScheduleController extends Controller
 {
     public function index()
     {
-        $schedules = Schedule::with('plant')->get();
+        $schedules = Schedule::with('plant')->where('login_id', Auth::id())->get();
         return view('calendar', compact('schedules'));
     }
 
@@ -21,8 +23,13 @@ class ScheduleController extends Controller
             'event_date' => 'required|date',
         ]);
 
-        $schedule = Schedule::create($request->all());
-
+        $schedule = Schedule::create([
+            'login_id' => Auth::id(),
+            'plant_id' => $request->plant_id,
+            'event_type' => $request->event_type,
+            'event_date' => $request->event_date,
+            'status' => $request->status ?? 'pending',
+        ]);
         return redirect()->back();
     }
 

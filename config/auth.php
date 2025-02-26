@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'login',
+            'provider' => 'logins',
         ],
     ],
 
@@ -60,7 +60,7 @@ return [
     */
 
     'providers' => [
-        'login' => [
+        'logins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Login::class),
         ],
@@ -91,8 +91,8 @@ return [
     */
 
     'passwords' => [
-        'login' => [
-            'provider' => 'login',
+        'logins' => [
+            'provider' => 'logins',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
