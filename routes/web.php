@@ -41,6 +41,7 @@ Route::middleware('authuser')->group(function (){
 Route::middleware('authverified')->group(function (){
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
+Route::get('/completed/{id}', [ScheduleController::class, 'completeschedule'])->name('completeschedule');
 
 
 Route::get('/brgyplants', function (Request $request) {

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -50,8 +53,6 @@
                 <th>Date</th>
                 <th>Location</th>
                 <th>Status</th>
-                
-
             </tr>
         </thead>
         <tbody id="scheduleTable">
@@ -61,7 +62,16 @@
                     <td>{{ ucfirst($schedule->event_type) }}</td>
                     <td>{{ $schedule->event_date }}</td>
                     <td>{{ $schedule->plant->location }}</td>
-                    <td>{{ ucfirst($schedule->status) }}</td>
+                    <td>{{ ucfirst($schedule->status) }}
+                        @if($schedule->status === 'pending') 
+                        <form action="{{route('completeschedule', $schedule->id)}}" method="GET">
+                        @csrf
+                        <button class="btn btn-primary btn-sm delete-notification">
+                            <i class="fas fa-check "></i> Complete</button>
+                        </form>
+                        @endif
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>

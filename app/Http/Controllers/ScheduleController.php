@@ -56,6 +56,22 @@ class ScheduleController extends Controller
         return view('plant');
     }
 
+    public function completeschedule($id)
+{
+    // Get the authenticated user's ID
+    $userId = Auth::id();
+
+    // Find the schedule that belongs to the logged-in user
+    $schedule = Schedule::where('id', $id)
+                        ->where('login_id', $userId)
+                        ->firstOrFail();
+
+    // Update the status to "completed"
+    $schedule->update(['status' => 'completed']);
+
+    return back();
+}
+
 
     
 }
