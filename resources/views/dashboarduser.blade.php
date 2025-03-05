@@ -13,22 +13,7 @@
             {{session()->get('success')}}
 @endif
 <br>
-
-
     THIS IS DASHBOARD FOR VERFIED AND NON VERIFIED
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar with Dropdown</title>
-
-    <!-- Bootstrap 5 & FontAwesome -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <div class="container">
@@ -112,7 +97,7 @@
 
 
 
-    @elseif(Auth::check() && Auth::user()->verified)
+    @elseif(Auth::check() && Auth::user()->verified && Auth::user()->role === 'user')
     THIS IS DASHBOARD FOR VERIFIED USER
         <p>GO TO PLANT SCHEDULES</p>
         <a href="/calendar" style="display: inline-block; padding: 10px 20px; background-color: green; color: #fff; text-decoration: none; border-radius: 5px;">Plant Schedules</a>
