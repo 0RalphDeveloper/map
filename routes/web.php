@@ -11,6 +11,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WeatherController;
 
 
 Route::get('/', function () {
@@ -23,6 +24,11 @@ Route::get('/verify-user/{id}', function ($id) {
     $user->save();
     return redirect('/dashboarduser');
 })->name('verifyuser');
+
+Route::post('/weather', [WeatherController::class, 'getWeather'])->name('weather.post');
+Route::get('/weather-view', function () {
+    return view('weather');
+});
 Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
