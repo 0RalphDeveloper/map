@@ -1,6 +1,3 @@
-
-
-blade
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,73 +6,96 @@ blade
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Weather Forecast - 3-Hour Intervals</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .container {
-            width: 95%;
-            max-width: 1400px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .current-weather {
-            background: linear-gradient(135deg, #007bff, #00c6ff);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            width: 100%;
-        }
-        .weather-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            padding: 10px;
-            max-height: 60vh;
-            overflow-y: auto;
-            width: 100%;
-        }
-        .weather-day {
-            background: #f8f9fa;
-            padding: 15px;
-            min-width: 120px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            flex: 1 1 calc(100% / 8 - 20px);
-            max-width: calc(100% / 8 - 20px);
-        }
-        @media (max-width: 1200px) {
-            .weather-day { flex: 1 1 calc(100% / 4 - 20px); max-width: calc(100% / 4 - 20px); }
-        }
-        @media (max-width: 800px) {
-            .weather-day { flex: 1 1 calc(100% / 2 - 20px); max-width: calc(100% / 2 - 20px); }
-        }
-        @media (max-width: 500px) {
-            .weather-day { flex: 1 1 100%; max-width: 100%; }
-        }
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Changed from center */
+    min-height: 100vh; /* Ensures scrolling */
+    overflow-x: hidden; /* Prevents horizontal overflow */
+    padding: 20px;
+}
+
+    .container {
+        width: 95%;
+        max-width: 1400px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden; /* Ensures content doesn’t overflow */
+    }
+
+    .current-weather {
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+    }
+
+    .weather-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px;
+        width: 100%;
+        max-height: 70vh; /* Increased height to prevent overflow */
+        overflow-y: auto;
+    }
+
+    .weather-day {
+        background: #f8f9fa;
+        padding: 15px;
+        min-width: 120px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(100% / 8 - 20px);
+        max-width: calc(100% / 8 - 20px);
+    }
+
+    .upcoming-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        margin: 15px auto; /* Centers it horizontally */
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        display: block; /* Ensures it behaves properly */
+        width: fit-content; /* Prevents full width */
+    }
+
+    /* Responsive Fixes */
+    @media (max-width: 1200px) {
+        .weather-day { flex: 1 1 calc(100% / 4 - 20px); max-width: calc(100% / 4 - 20px); }
+    }
+    @media (max-width: 800px) {
+        .weather-day { flex: 1 1 calc(100% / 2 - 20px); max-width: calc(100% / 2 - 20px); }
+    }
+    @media (max-width: 500px) {
+        .weather-day { flex: 1 1 100%; max-width: 100%; }
+    }
+
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Weather Forecast - 3-Hour Intervals 🌦</h2>
+        <h2>Weather Forecast With 3-Hour Intervals 🌦</h2>
         <div id="weatherResult"></div>
         <p id="currentDateTime"></p>
     </div>
@@ -96,16 +116,21 @@ blade
                 return response.json();
             })
             .then(data => {
+                if (!data.forecast || data.forecast.length === 0) {
+                    document.getElementById('weatherResult').innerHTML = `<p style="color:red;">No weather data available.</p>`;
+                    return;
+                }
+
                 let weatherHtml = `  
                     <div class="current-weather">
                         <h3>${data.city}, ${data.country}</h3>
                         <p><strong>Current Date and Time:</strong> <span id="currentDateTimeDisplay">${new Date()}</span></p>
                         <p><strong>Current Weather:</strong></p>
-                        <p><strong>${formatAMPM(new Date(data.forecast[0].datetime))}</strong></p>
                         <p>🌡 Temperature: <strong>${data.forecast[0].temperature}°C</strong></p>
                         <p>🌤 Weather: <strong>${data.forecast[0].weather}</strong></p>
                         <img src="http://openweathermap.org/img/wn/${data.forecast[0].icon}.png" alt="Weather icon">
                     </div>
+                    <p class="upcoming-title">Upcoming 3-Hour Intervals</p>
                     <div class="weather-container">`;
 
                 // Displaying the upcoming 3-hour intervals starting from the second one
@@ -141,7 +166,10 @@ blade
 
       // Function to update the date and time every second
         function updateDateTime() {
-            document.getElementById('currentDateTimeDisplay').textContent = new Date();
+            let dateTimeElement = document.getElementById('currentDateTimeDisplay');
+            if (dateTimeElement) {
+                dateTimeElement.textContent = new Date().toLocaleString();
+            }
         }
 
         window.onload = function() {
