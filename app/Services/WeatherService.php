@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class WeatherService
 {
@@ -47,16 +48,26 @@ class WeatherService
     {
         $forecastData = [];
 
-        foreach ($list as $forecast) {
-            $datetime = date('Y-m-d H:i', $forecast['dt']);  // Format datetime to include time
-            $forecastData[] = [
-                'datetime' => $datetime,
-                'temperature' => $forecast['main']['temp'],
-                'weather' => $forecast['weather'][0]['description'],
-                'icon' => $forecast['weather'][0]['icon'],
-            ];
-        }
+foreach ($list as $forecast) {
+    $utcTimestamp = $forecast['dt'];
 
-        return $forecastData;
+    // Subtract 3 hours if API timestamps are already shifted
+    $correctedTimestamp = $utcTimestamp - (3 * 3600);
+
+    // Convert timestamp to Manila time
+    $datetime = Carbon::createFromTimestampUTC($correctedTimestamp)
+        ->setTimezone('Asia/Manila')
+        ->format('Y-m-d h:i A');
+
+    // Store formatted data
+    $forecastData[] = [
+        'datetime' => $datetime,
+        'temperature' => $forecast['main']['temp'],
+        'weather' => $forecast['weather'][0]['description'],
+        'icon' => $forecast['weather'][0]['icon'],
+    ];
+}
+
+return $forecastData;
     }
 }

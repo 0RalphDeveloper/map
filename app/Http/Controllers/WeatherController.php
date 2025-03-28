@@ -14,7 +14,7 @@ class WeatherController extends Controller
         $this->weatherService = $weatherService;
     }
 
-    public function getWeather(Request $request)
+    public function getWeather()
     {
         $city = 'Tayabas'; // Example city, can be dynamic based on user input.
 

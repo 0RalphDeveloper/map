@@ -25,10 +25,11 @@ Route::get('/verify-user/{id}', function ($id) {
     return redirect('/dashboarduser');
 })->name('verifyuser');
 
-Route::post('/weather', [WeatherController::class, 'getWeather'])->name('weather.post');
+Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
 Route::get('/weather-view', function () {
     return view('weather');
 });
+
 Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
 Route::get('/registeruser', [LoginController::class, 'createview'])->name('registeruser');
@@ -49,14 +50,7 @@ Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
 Route::get('/completed/{id}', [ScheduleController::class, 'completeschedule'])->name('completeschedule');
 
-
-Route::get('/brgyplants', function (Request $request) {
-    $barangay = $request->query('barangay');
-    $plants = Plant::where('location', $barangay)->get();
-    
-    return view('brgyplants', compact('barangay', 'plants'));
-});
-
+Route::get('/brgyplants',[ScheduleController::class, 'viewBrgy']);
 
 Route::get('/map', [MapController::class, 'mapview']);
 

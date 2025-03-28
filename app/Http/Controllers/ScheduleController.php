@@ -72,6 +72,12 @@ class ScheduleController extends Controller
     return back();
 }
 
+    public function viewBrgy(Request $request){
+        $barangay = $request->query('barangay');
+        $plants = Plant::where('location', $barangay)->get();
+
+        return view('brgyplants', compact('barangay', 'plants')); 
+    }
 
     
 }
