@@ -25,10 +25,6 @@ Route::get('/verify-user/{id}', function ($id) {
     return redirect('/dashboarduser');
 })->name('verifyuser');
 
-Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather');
-Route::get('/weather-view', function () {
-    return view('weather');
-});
 
 Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
@@ -46,6 +42,10 @@ Route::middleware('authuser')->group(function (){
 });
 
 Route::middleware('authverified')->group(function (){
+
+Route::get('/weather', [WeatherController::class, 'index']);
+Route::get('/weather/result', [WeatherController::class, 'showWeather']);
+
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
 Route::get('/completed/{id}', [ScheduleController::class, 'completeschedule'])->name('completeschedule');

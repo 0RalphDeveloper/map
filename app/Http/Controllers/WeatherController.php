@@ -14,17 +14,36 @@ class WeatherController extends Controller
         $this->weatherService = $weatherService;
     }
 
-    public function getWeather()
+    // Show the Blade view with the barangay dropdown and weather data
+    public function index()
     {
-        $city = 'Tayabas'; // Example city, can be dynamic based on user input.
+        // List of barangays (you can add more if needed)
+        $barangays = [
+            'Alupay', 'Angeles', 'Anos', 'Bagumbayan', 'Calumpang',
+            'Dapdap', 'Domit', 'Ipilan', 'Lalo', 'Opias', 'Palale', 'San Diego'
+        ];
 
-        // Fetch weather data
-        $weatherData = $this->weatherService->getWeather($city);
-
-        if (isset($weatherData['error'])) {
-            return response()->json($weatherData, 404);
-        }
-
-        return response()->json($weatherData);
+        return view('weather', compact('barangays'));
     }
+
+    public function showWeather(Request $request)
+    {
+        $barangay = $request->input('barangay');
+    
+        if (!$barangay) {
+            return response()->json(['error' => 'Please select a barangay.'], 400);
+        }
+    
+        // Fetch weather data using the WeatherService
+        $weather = $this->weatherService->getWeather($barangay);
+    
+        // Check if there's an error in the result
+        if (isset($weather['error'])) {
+            return response()->json(['error' => $weather['error']], 400);
+        }
+    
+        // Pass the weather data to the Blade view
+        return view('weather-result', ['weather' => $weather, 'barangay' => $barangay]);
+    }
+    
 }
