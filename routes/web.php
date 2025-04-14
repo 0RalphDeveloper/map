@@ -12,7 +12,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WeatherController;
-
+use App\Http\Controllers\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +25,11 @@ Route::get('/verify-user/{id}', function ($id) {
     return redirect('/dashboarduser');
 })->name('verifyuser');
 
+Route::get('/request-password-reset', [ResetPasswordController::class, 'showRequestForm'])->name('custom.request.form');
+Route::post('/send-password-reset-link', [ResetPasswordController::class, 'sendResetLink'])->name('custom.send.link');
+
+Route::get('/custom-password-reset', [ResetPasswordController::class, 'showResetForm'])->name('custom.reset.form');
+Route::post('/custom-password-reset', [ResetPasswordController::class, 'resetPassword'])->name('custom.reset.submit');
 
 Route::post('/dashboardadmin/create', [LoginController::class, 'logoutUser'])->name('logoutUser');
 
