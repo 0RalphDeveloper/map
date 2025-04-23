@@ -1,45 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barangay Weather</title>
-    <style>
-        /* Your existing styles */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Select Barangay for Weather Info</h2>
+<form action="{{ route('weather.result') }}" method="POST">
+    @csrf
 
-        <!-- Horizontal layout for barangay selection and button -->
-        <div class="input-container">
-            <select id="barangaySelect">
-                <option value="">-- Select Barangay --</option>
-                @foreach ($barangays as $barangay)
-                    <option value="{{ $barangay }}">{{ $barangay }}</option>
-                @endforeach
-            </select>
+    <div class="input-container">
+        <select name="barangay" id="barangaySelect" required>
+            <option value="">-- Select Barangay --</option>
+            @foreach ($barangays as $barangay)
+                <option value="{{ $barangay }}">{{ $barangay }}</option>
+            @endforeach
+        </select>
 
-            <button id="getWeather">Get Weather</button>
-        </div>
+        <button type="submit">Get Weather</button>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#getWeather').click(function() {
-                let barangay = $('#barangaySelect').val();
-
-                if (!barangay) {
-                    alert("Please select a barangay.");
-                    return;
-                }
-
-                // Redirect to a new page with the weather data (passing the barangay as a query parameter)
-                window.location.href = "/weather/result?barangay=" + encodeURIComponent(barangay);
-            });
-        });
-    </script>
-</body>
-</html>
+</form>
+<div>
+<a href="/dashboarduser" style="display: inline-block; padding: 10px 20px; background-color: blue; color: #fff; text-decoration: none; border-radius: 5px;">Dashboard</a>
+</div>

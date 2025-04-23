@@ -94,6 +94,8 @@
         <a href="/announcement" style="display: inline-block; padding: 10px 20px; background-color: brown; color: #fff; text-decoration: none; border-radius: 5px;">Admin Announcement</a>
         <br><br>
         <a href="/map" style="display: inline-block; padding: 10px 20px; background-color: blue; color: #fff; text-decoration: none; border-radius: 5px;">View Map</a>
+        <br><br>
+        <a href="/weather" style="display: inline-block; padding: 10px 20px; background-color: blue; color: #fff; text-decoration: none; border-radius: 5px;">Get Weather</a>
 
 
 

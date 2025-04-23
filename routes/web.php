@@ -49,7 +49,7 @@ Route::middleware('authuser')->group(function (){
 Route::middleware('authverified')->group(function (){
 
 Route::get('/weather', [WeatherController::class, 'index']);
-Route::get('/weather/result', [WeatherController::class, 'showWeather']);
+Route::post('/weather/result', [WeatherController::class, 'showWeather'])->name('weather.result');
 
 Route::get('/calendar', [ScheduleController::class, 'index'])->name('calendar');
 Route::post('/schedules', [ScheduleController::class, 'store'])->name('schedules');
